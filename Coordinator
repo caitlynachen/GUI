@@ -1,0 +1,11 @@
+# GUI
+package jrJava.gui;
+
+public class Coordinator {
+
+	public static void main(String[] args) {
+		new GraphicInterface();
+		
+	}
+
+}
