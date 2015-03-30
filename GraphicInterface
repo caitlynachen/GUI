@@ -1,0 +1,137 @@
+package jrJava.gui;
+
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+
+public class GraphicInterface implements ActionListener{
+
+	private JFrame frame;
+	private JPanel panel;
+	private JButton button1;
+	private JButton button2;
+	private JTextField textField;
+	private JTextArea textArea;
+	private JScrollPane scrollPane;
+	private JLabel label1, label2, label3, label4;
+
+	
+
+	public GraphicInterface(){
+		initialize();
+	}
+
+	private void initialize(){
+		frame = new JFrame();
+		frame.setTitle("My First GUI");
+		frame.setBounds(0,0,480,350);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		panel = new JPanel();
+
+		frame.getContentPane().add(panel, BorderLayout.CENTER);
+		panel.setLayout(null);
+
+		addUIComponentsToPanel();
+
+		frame.setVisible(true);
+	}
+
+	private void addUIComponentsToPanel(){
+		button1 =new JButton("Save");
+		button1.setBounds(350,255,80,20);
+		button1.setActionCommand("saveAction");
+		button1.addActionListener(this);
+		panel.add(button1);
+
+		button2 = new JButton("Cancel");
+		button2.setBounds(350,285,80,20);
+		button2.setActionCommand("cancelAction");
+		button2.addActionListener(this);
+		panel.add(button2);
+
+		textField = new JTextField();
+		textField.setBounds(20,270,300,20);
+		panel.add(textField);
+
+		textArea = new JTextArea();
+		scrollPane = new JScrollPane();
+		scrollPane.setViewportView(textArea);
+		scrollPane.setBounds(20,40,300,200);
+		panel.add(scrollPane);
+
+		label1 = new JLabel ("Enter Text:");
+		label1.setBounds(20,20,80,20);
+		panel.add(label1);
+
+		ImageIcon icon2 = new ImageIcon("jrJava/imagesAndSounds/blueAlien_1.png");
+		label2 = new JLabel("GUI Demo",  icon2 , JLabel.CENTER);
+		label2.setVerticalTextPosition(JLabel.TOP);
+		label2.setHorizontalTextPosition(JLabel.CENTER);
+		label2.setBounds(350,40,80,80);
+		panel.add(label2);
+
+		ImageIcon icon3 = new ImageIcon("jrJava/imagesAndSounds/torpedo.png");
+		label3 = new JLabel("",  icon3 , JLabel.CENTER);
+		label3.setVerticalTextPosition(JLabel.TOP);
+		label3.setHorizontalTextPosition(JLabel.CENTER);
+		label3.setBounds(350,130,80,80);
+		panel.add(label3);
+             
+		ImageIcon icon4 = new ImageIcon("jrJava/imagesAndSounds/ship.png");
+		label4 = new JLabel("",  icon4 , JLabel.CENTER);
+		label4.setVerticalTextPosition(JLabel.TOP);
+		label4.setHorizontalTextPosition(JLabel.CENTER);
+		label4.setBounds(350,170,80,80);
+		panel.add(label4);
+	}
+
+	public void actionPerformed(ActionEvent e) {
+
+		String command = e.getActionCommand();
+
+		if(command.equals("saveAction")){
+			System.out.println("I know you pressed the SAVE- button");
+
+			String content = textArea.getText();
+			String fileName = textField.getText();
+			
+			try{
+			
+			PrintWriter pw = new PrintWriter(fileName);
+			pw.println(content);
+			pw.flush();
+			pw.close();
+			}
+			catch(IOException ioe){
+			}
+		}
+
+		else if(command.equals("cancelAction")){
+			System.out.println("I know you pressed the CANCEL- button");
+
+		}
+
+
+	}
+
+
+}
+
+
+
+
+
+
